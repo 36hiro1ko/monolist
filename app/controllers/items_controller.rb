@@ -3,12 +3,13 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show]
 
   def new
+     response = {}
     if params[:q]
       response = Amazon::Ecs.item_search(params[:q] , 
                                   :search_index => 'All' , 
-                                  :response_group => 'Medium' , 
+                                  :response_group => 'Medium' ,
                                   :country => 'jp')
-      @amazon_items = response.items
+      @amazon_items = response.items      
     end
   end
 
