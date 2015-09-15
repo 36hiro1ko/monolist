@@ -2,8 +2,10 @@ class OwnershipsController < ApplicationController
   before_action :logged_in_user
 
   def create
+    
     if params[:asin]
       @item = Item.find_or_initialize_by(asin: params[:asin])
+
     else
       @item = Item.find(params[:item_id])
     end
@@ -13,9 +15,20 @@ class OwnershipsController < ApplicationController
       begin
         # TODO 商品情報の取得 Amazon::Ecs.item_lookupを用いてください
         response = {}
+        
+        #  ---API呼び出し---
+         if params[:asin]
+         response = Amazon::Ecs.item_lookup(params[:asin],
+                                            :response_group => 'Medium',
+                                            :country => 'jp')
+         @amazon_items = response.items
+         end
+         
       rescue Amazon::RequestError => e
         return render :js => "alert('#{e.message}')"
       end
+      
+      #binding.pry
 
       amazon_item       = response.items.first
       @item.title        = amazon_item.get('ItemAttributes/Title')
@@ -25,21 +38,37 @@ class OwnershipsController < ApplicationController
       @item.detail_page_url = amazon_item.get("DetailPageURL")
       @item.raw_info        = amazon_item.get_hash
       @item.save!
+ 
     end
 
     # TODO ユーザにwant or haveを設定する
     # params[:type]の値ににHaveボタンが押された時には「Have」,
     # Wantボタンがされた時には「Want」が設定されています。
+    current_user.have(@item) if params[:type]=="Have"
+    current_user.want(@item) if params[:type]=="Want" 
     
-
+    #binding.pry
   end
 
   def destroy
-    @item = Item.find(params[:item_id])
+    
+    case params[:type]
+    
+      when "Have" then
+        @item = Have.find(params[:id]).item
+        current_user.unhave(@item)
+      
+      when "Want" then 
+        @item = Want.find(params[:id]).item
+        current_user.unwant(@item)
+      
+    end
 
     # TODO 紐付けの解除。 
     # params[:type]の値ににHavedボタンが押された時には「Have」,
-    # Wantedボタンがされた時には「Want」が設定されています。
+    # Wantedボタンがされた時には「Want」が設定されています。  
 
   end
+  
+
 end
