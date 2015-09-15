@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :relationships, only: [:create, :destroy]
-  #resources :ownerships, only: [:create, :destroy]
-  resources :ownerships
+  resources :ownerships, only: [:create, :destroy]
+ 
   resources :items , only: [:new , :show]
   
   
