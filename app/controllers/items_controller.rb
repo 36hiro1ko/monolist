@@ -13,7 +13,12 @@ class ItemsController < ApplicationController
     end
   end
 
+  # -- itemページ --
   def show
+    @item = Item.find(params[:id])
+
+    @url = @item.detail_page_url
+    #binding.pry
   end
   
 
