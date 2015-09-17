@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   end
   
   def show
-    @items = @user.items.group(:item_id) #グループ化キー item_id
+    @items = @user.items
   end
 
   private
