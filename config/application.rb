@@ -8,7 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Monolist
   class Application < Rails::Application
-    config.assets.paths << "#{Rails}/vendor/assets/fonts"
+    #config.assets.paths << "#{Rails}/vendor/assets/fonts"
   
     config.active_record.raise_in_transactional_callbacks = true
     config.generators do |g|
