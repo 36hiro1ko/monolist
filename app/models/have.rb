@@ -1,2 +1,3 @@
 class Have < Ownership
+    
 end
