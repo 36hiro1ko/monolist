@@ -4,7 +4,6 @@ Rails.application.configure do
   # for fonticon
   #config.assets.compile = true
   #config.serve_static_assets = true
-  config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/ 
   
   # Code is not reloaded between requests.
   config.cache_classes = true
