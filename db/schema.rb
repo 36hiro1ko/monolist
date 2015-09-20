@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918141816) do
+ActiveRecord::Schema.define(version: 20150708042943) do
 
   create_table "items", force: :cascade do |t|
     t.string   "asin"
@@ -32,9 +32,8 @@ ActiveRecord::Schema.define(version: 20150918141816) do
     t.integer  "user_id"
     t.integer  "item_id"
     t.string   "type"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "item_id_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "ownerships", ["item_id"], name: "index_ownerships_on_item_id"
