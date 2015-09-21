@@ -6,14 +6,12 @@
         第<%= a+1 %>位<% a=a+1 %>
       </div>
 
-     <div class="image2">
-       <div class="img-wrap2">
+     <div class="image2">    
         <% if item.large_image.present? %>
           <%= image_tag(item.large_image, alt: item.title) %>
         <% else %>
           <%= image_tag("no-image.png" , alt: item.title) %>
-        <% end %>
-        </div>
+        <% end %>        
       </div>
       
       <div class="detail">
