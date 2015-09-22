@@ -17,8 +17,6 @@ class UsersController < ApplicationController
   def show
     #@items = @user.items 
     #wantとhaveをされた場合に重複してアイテムが表示されないように以下を指定
-    #しかし、pg環境下ではエラーになるようなのでコメントアウトとする
-    #@items = @user.items.group("item_id")
     @items = @user.items.group('items.id')
   end
 
